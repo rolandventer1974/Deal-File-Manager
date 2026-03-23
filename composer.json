@@ -1,0 +1,23 @@
+{
+    "name": "deal-file-manager/app",
+    "description": "Deal File Manager - Document Management System for Auto Sales",
+    "type": "project",
+    "require": {
+        "php": "^7.4 || ^8.0",
+        "ext-pdo": "*",
+        "ext-json": "*",
+        "ext-curl": "*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "DealFileManager\\": "src/"
+        }
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "php": "8.0"
+    }
+}
