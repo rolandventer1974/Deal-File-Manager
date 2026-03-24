@@ -15,6 +15,7 @@ use DealFileManager\Config\Config;
 use DealFileManager\Config\Database;
 use DealFileManager\Controllers\DashboardController;
 use DealFileManager\Controllers\DealFileController;
+use DealFileManager\Controllers\LoginController;
 use DealFileManager\Utils\Logger;
 
 // Load environment configuration
@@ -34,6 +35,11 @@ $requestPath = trim($requestPath, '/');
 // Route handler
 try {
     if (empty($requestPath) || $requestPath === '') {
+        // Login page
+        $controller = new LoginController();
+        $controller->index();
+
+    } elseif ($requestPath === 'dashboard') {
         // Dashboard
         $controller = new DashboardController();
         $controller->index();
