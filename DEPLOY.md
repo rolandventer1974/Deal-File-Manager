@@ -28,14 +28,14 @@ ssh root@your_droplet_ip
 ```bash
 # Download the application
 cd /tmp
-git clone <your-repo-url> deal-file-manager
-cd deal-file-manager
+git clone <your-repo-url> dealfilemanager
+cd dealfilemanager
 
 # Make setup script executable
 chmod +x setup.sh
 
 # Run setup with your domain
-./setup.sh autoslmdealfilemanager.co.za
+./setup.sh dealfilemanager.co.za
 ```
 
 The script will:
@@ -52,8 +52,8 @@ The script will:
 After the setup completes, secure your site with Let's Encrypt:
 
 ```bash
-certbot certonly --webroot -w /var/www/deal-file-manager/public \
-  -d yourdomain.com -d www.yourdomain.com
+certbot certonly --webroot -w /var/www/dealfilemanager/public \
+  -d dealfilemanager.co.za -d www.dealfilemanager.co.za
 ```
 
 Update Nginx configuration with certificate paths and reload:
@@ -84,25 +84,25 @@ In your ColdFusion AutoSLM application:
 
 3. **Test OTP Submission:**
    - Create a test deal with OTP
-   - Monitor logs: `tail -f /var/www/deal-file-manager/logs/api.log`
+   - Monitor logs: `tail -f /var/www/dealfilemanager/logs/api.log`
 
 ## File Locations
 
-- Application: `/var/www/deal-file-manager`
-- Configuration: `/var/www/deal-file-manager/.env`
-- Logs: `/var/www/deal-file-manager/logs/`
-- Uploads: `/var/www/deal-file-manager/public/uploads/`
-- Backups: `/var/backups/deal-file-manager/`
-- Nginx config: `/etc/nginx/sites-available/deal-file-manager`
+- Application: `/var/www/dealfilemanager`
+- Configuration: `/var/www/dealfilemanager/.env`
+- Logs: `/var/www/dealfilemanager/logs/`
+- Uploads: `/var/www/dealfilemanager/public/uploads/`
+- Backups: `/var/backups/dealfilemanager/`
+- Nginx config: `/etc/nginx/sites-available/dealfilemanager`
 
 ## Post-Installation
 
 ### Update Environment Variables
 
-Edit `/var/www/deal-file-manager/.env`:
+Edit `/var/www/dealfilemanager/.env`:
 
 ```bash
-nano /var/www/deal-file-manager/.env
+nano /var/www/dealfilemanager/.env
 ```
 
 Key settings to configure:
@@ -113,7 +113,7 @@ Key settings to configure:
 ### Create First Admin User
 
 ```bash
-cd /var/www/deal-file-manager
+cd /var/www/dealfilemanager
 # Future: User management system
 ```
 
@@ -133,7 +133,7 @@ Check logs for any issues:
 
 ```bash
 # Application logs
-tail -f /var/www/deal-file-manager/logs/app.log
+tail -f /var/www/dealfilemanager/logs/app.log
 
 # Nginx logs
 tail -f /var/log/nginx/access.log
@@ -148,7 +148,7 @@ tail -f /var/log/mysql/error.log
 Automatic daily backups run at 2 AM UTC. Check backup status:
 
 ```bash
-ls -lh /var/backups/deal-file-manager/
+ls -lh /var/backups/dealfilemanager/
 ```
 
 Manual backup:
@@ -253,7 +253,7 @@ ufw show added
 
 ```bash
 df -h
-du -sh /var/www/deal-file-manager/public/uploads/
+du -sh /var/www/dealfilemanager/public/uploads/
 ```
 
 ### System Resources
@@ -325,7 +325,7 @@ systemctl status php8.0-fpm
 systemctl status nginx
 
 # Clear application logs
-> /var/www/deal-file-manager/logs/app.log
+> /var/www/dealfilemanager/logs/app.log
 
 # Check PHP version
 php -v

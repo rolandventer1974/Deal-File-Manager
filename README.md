@@ -26,7 +26,7 @@ Run the automated installation script:
 
 ```bash
 chmod +x setup.sh
-./setup.sh autoslmdealfilemanager.co.za
+./setup.sh dealfilemanager.co.za
 ```
 
 Or follow manual installation below.
@@ -37,8 +37,8 @@ Or follow manual installation below.
 
 ```bash
 cd /var/www
-git clone <repository-url> deal-file-manager
-cd deal-file-manager
+git clone <repository-url> dealfilemanager
+cd dealfilemanager
 ```
 
 ### 2. Set Permissions
@@ -151,7 +151,7 @@ GET /public/api.php?action=download-document&document_id=5
 ## Project Structure
 
 ```
-deal-file-manager/
+dealfilemanager/
 ├── public/               # Web root
 │   ├── index.php        # Main application entry
 │   ├── api.php          # API endpoint

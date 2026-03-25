@@ -6,7 +6,7 @@
 
 ```bash
 chmod +x setup.sh
-./setup.sh autoslmdealfilemanager.co.za
+./setup.sh dealfilemanager.co.za
 ```
 
 ### Option 2: Manual Installation

@@ -25,7 +25,7 @@ Config::load(__DIR__ . '/../.env');
 Database::loadConfig();
 
 // Set up logging
-Logger::setLogFile(Config::get('LOG_FILE', '/var/www/deal-file-manager/logs/app.log'));
+Logger::setLogFile(Config::get('LOG_FILE', '/var/www/dealfilemanager/logs/app.log'));
 
 // Parse request path
 $requestPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);

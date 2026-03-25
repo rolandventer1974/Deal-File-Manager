@@ -16,8 +16,8 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # No Color
 
 # Variables
-DOMAIN_NAME="${1:-yourdomain.com}"
-APP_DIR="/var/www/deal-file-manager"
+DOMAIN_NAME="${1:-dealfilemanager.co.za}"
+APP_DIR="/var/www/dealfilemanager"
 DB_NAME="deal_file_manager"
 DB_USER="dfm_user"
 DB_PASSWORD=$(openssl rand -base64 12)
@@ -107,12 +107,12 @@ mysql -u ${DB_USER} -p${DB_PASSWORD} ${DB_NAME} < database/schema.sql
 
 # Configure Nginx
 echo -e "${YELLOW}Configuring Nginx...${NC}"
-cp nginx.conf /etc/nginx/sites-available/deal-file-manager
-sed -i "s/yourdomain.com/${DOMAIN_NAME}/g" /etc/nginx/sites-available/deal-file-manager
-sed -i "s|/var/www/deal-file-manager|${APP_DIR}|g" /etc/nginx/sites-available/deal-file-manager
+cp nginx.conf /etc/nginx/sites-available/dealfilemanager
+sed -i "s/yourdomain.com/${DOMAIN_NAME}/g" /etc/nginx/sites-available/dealfilemanager
+sed -i "s|/var/www/dealfilemanager|${APP_DIR}|g" /etc/nginx/sites-available/dealfilemanager
 
 # Enable Nginx site
-ln -sf /etc/nginx/sites-available/deal-file-manager /etc/nginx/sites-enabled/
+ln -sf /etc/nginx/sites-available/dealfilemanager /etc/nginx/sites-enabled/
 
 # Disable default site
 rm -f /etc/nginx/sites-enabled/default
@@ -132,7 +132,7 @@ certbot certonly --nginx -d ${DOMAIN_NAME} -d www.${DOMAIN_NAME} --non-interacti
 
 # Create cron job for log rotation
 echo -e "${YELLOW}Setting up log rotation...${NC}"
-cat > /etc/logrotate.d/deal-file-manager <<EOF
+cat > /etc/logrotate.d/dealfilemanager <<EOF
 ${APP_DIR}/logs/*.log {
     daily
     rotate 14
@@ -146,9 +146,9 @@ EOF
 
 # Create a backup script
 echo -e "${YELLOW}Creating backup script...${NC}"
-cat > /usr/local/bin/backup-deal-file-manager.sh <<'EOF'
+cat > /usr/local/bin/backup-dealfilemanager.sh <<'EOF'
 #!/bin/bash
-BACKUP_DIR="/var/backups/deal-file-manager"
+BACKUP_DIR="/var/backups/dealfilemanager"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 mkdir -p $BACKUP_DIR
 
@@ -157,7 +157,7 @@ mysqldump -u dfm_user -p${DB_PASSWORD} deal_file_manager > $BACKUP_DIR/db_${TIME
 gzip $BACKUP_DIR/db_${TIMESTAMP}.sql
 
 # Backup uploads
-tar -czf $BACKUP_DIR/uploads_${TIMESTAMP}.tar.gz /var/www/deal-file-manager/public/uploads/
+tar -czf $BACKUP_DIR/uploads_${TIMESTAMP}.tar.gz /var/www/dealfilemanager/public/uploads/
 
 # Keep only last 30 days of backups
 find $BACKUP_DIR -name "*.sql.gz" -mtime +30 -delete
@@ -166,10 +166,10 @@ find $BACKUP_DIR -name "*.tar.gz" -mtime +30 -delete
 echo "Backup completed: $TIMESTAMP"
 EOF
 
-chmod +x /usr/local/bin/backup-deal-file-manager.sh
+chmod +x /usr/local/bin/backup-dealfilemanager.sh
 
 # Add to crontab
-echo "0 2 * * * /usr/local/bin/backup-deal-file-manager.sh" | crontab -
+echo "0 2 * * * /usr/local/bin/backup-dealfilemanager.sh" | crontab -
 
 # Print summary
 echo ""

@@ -26,7 +26,7 @@ Config::load(__DIR__ . '/../.env');
 Database::loadConfig();
 
 // Set up logging
-Logger::setLogFile(Config::get('LOG_FILE', '/var/www/deal-file-manager/logs/api.log'));
+Logger::setLogFile(Config::get('LOG_FILE', '/var/www/dealfilemanager/logs/api.log'));
 
 // Get request method and action
 $method = $_SERVER['REQUEST_METHOD'];

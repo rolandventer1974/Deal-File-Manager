@@ -16,8 +16,8 @@ YELLOW='\033[1;33m'
 NC='\033[0m'
 
 # Variables
-DOMAIN_NAME="${1:-autoslmdealfilemanager.co.za}"
-APP_DIR="/var/www/deal-file-manager"
+DOMAIN_NAME="${1:-dealfilemanager.co.za}"
+APP_DIR="/var/www/dealfilemanager"
 DB_NAME="deal_file_manager"
 DB_USER="dfm_user"
 DB_PASSWORD=$(openssl rand -base64 12)
@@ -100,12 +100,12 @@ mysql -u ${DB_USER} -p${DB_PASSWORD} ${DB_NAME} < database/schema.sql
 
 # Configure Nginx
 echo -e "${YELLOW}Configuring Nginx...${NC}"
-cp nginx.conf /etc/nginx/sites-available/deal-file-manager
-sed -i "s/yourdomain.com/${DOMAIN_NAME}/g" /etc/nginx/sites-available/deal-file-manager
-sed -i "s|/var/www/deal-file-manager|${APP_DIR}|g" /etc/nginx/sites-available/deal-file-manager
+cp nginx.conf /etc/nginx/sites-available/dealfilemanager
+sed -i "s/yourdomain.com/${DOMAIN_NAME}/g" /etc/nginx/sites-available/dealfilemanager
+sed -i "s|/var/www/dealfilemanager|${APP_DIR}|g" /etc/nginx/sites-available/dealfilemanager
 
 # Enable Nginx site
-ln -sf /etc/nginx/sites-available/deal-file-manager /etc/nginx/sites-enabled/
+ln -sf /etc/nginx/sites-available/dealfilemanager /etc/nginx/sites-enabled/
 
 # Disable default site
 rm -f /etc/nginx/sites-enabled/default
@@ -121,10 +121,10 @@ systemctl restart mysql
 
 # Create a backup script
 echo -e "${YELLOW}Creating backup script...${NC}"
-mkdir -p /var/backups/deal-file-manager
-cat > /usr/local/bin/backup-deal-file-manager.sh <<'BACKUP_EOF'
+mkdir -p /var/backups/dealfilemanager
+cat > /usr/local/bin/backup-dealfilemanager.sh <<'BACKUP_EOF'
 #!/bin/bash
-BACKUP_DIR="/var/backups/deal-file-manager"
+BACKUP_DIR="/var/backups/dealfilemanager"
 TIMESTAMP=$(date +%Y%m%d_%H%M%S)
 DB_PASS="PLACEHOLDER_PASSWORD"
 
@@ -135,7 +135,7 @@ mysqldump -u dfm_user -p${DB_PASS} deal_file_manager > $BACKUP_DIR/db_${TIMESTAM
 gzip $BACKUP_DIR/db_${TIMESTAMP}.sql
 
 # Backup uploads
-tar -czf $BACKUP_DIR/uploads_${TIMESTAMP}.tar.gz /var/www/deal-file-manager/public/uploads/ 2>/dev/null || true
+tar -czf $BACKUP_DIR/uploads_${TIMESTAMP}.tar.gz /var/www/dealfilemanager/public/uploads/ 2>/dev/null || true
 
 # Keep only last 30 days of backups
 find $BACKUP_DIR -name "*.sql.gz" -mtime +30 -delete
@@ -145,12 +145,12 @@ echo "Backup completed: $TIMESTAMP"
 BACKUP_EOF
 
 # Replace placeholder password in backup script
-sed -i "s/PLACEHOLDER_PASSWORD/${DB_PASSWORD}/g" /usr/local/bin/backup-deal-file-manager.sh
-chmod +x /usr/local/bin/backup-deal-file-manager.sh
+sed -i "s/PLACEHOLDER_PASSWORD/${DB_PASSWORD}/g" /usr/local/bin/backup-dealfilemanager.sh
+chmod +x /usr/local/bin/backup-dealfilemanager.sh
 
 # Add to crontab
-(crontab -l 2>/dev/null || echo "") | grep -v "backup-deal-file-manager" | crontab -
-(crontab -l 2>/dev/null; echo "0 2 * * * /usr/local/bin/backup-deal-file-manager.sh") | crontab -
+(crontab -l 2>/dev/null || echo "") | grep -v "backup-dealfilemanager" | crontab -
+(crontab -l 2>/dev/null; echo "0 2 * * * /usr/local/bin/backup-dealfilemanager.sh") | crontab -
 
 # Print summary
 echo ""

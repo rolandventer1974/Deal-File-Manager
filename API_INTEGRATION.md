@@ -24,7 +24,7 @@ Authorization: Bearer YOUR_API_KEY
 
 ### 1. Create Deal File / Submit OTP
 
-**Endpoint**: `POST https://autoslmdealfilemanager.co.za/api.php?action=receive-otp`
+**Endpoint**: `POST https://dealfilemanager.co.za/api.php?action=receive-otp`
 
 **Description**: Creates a new deal file and optionally uploads the OTP document.
 
@@ -150,7 +150,7 @@ curl -X POST "https://yourdomain.com/api.php?action=upload-document" \
 
 ### 3. Get Deal File Details
 
-**Endpoint**: `GET https://autoslmdealfilemanager.co.za/api.php?action=get-deal-file&deal_file_id={id}`
+**Endpoint**: `GET https://dealfilemanager.co.za/api.php?action=get-deal-file&deal_file_id={id}`
 
 **Response**:
 ```json
@@ -168,7 +168,7 @@ curl -X POST "https://yourdomain.com/api.php?action=upload-document" \
 
 ### 4. Get Deal File Documents
 
-**Endpoint**: `GET https://autoslmdealfilemanager.co.za/api.php?action=get-documents&deal_file_id={id}`
+**Endpoint**: `GET https://dealfilemanager.co.za/api.php?action=get-documents&deal_file_id={id}`
 
 **Response**:
 ```json
@@ -190,7 +190,7 @@ curl -X POST "https://yourdomain.com/api.php?action=upload-document" \
 
 ### 5. Update Document Status
 
-**Endpoint**: `PATCH https://autoslmdealfilemanager.co.za/api.php?action=update-document-status&document_id={id}`
+**Endpoint**: `PATCH https://dealfilemanager.co.za/api.php?action=update-document-status&document_id={id}`
 
 **Request Body**:
 ```json
@@ -234,7 +234,7 @@ curl -X POST "https://yourdomain.com/api.php?action=upload-document" \
     // Make API call
     httpService = new http(
         method = "POST",
-        url = "https://autoslmdealfilemanager.co.za/api.php?action=receive-otp",
+        url = "https://dealfilemanager.co.za/api.php?action=receive-otp",
         charset = "UTF-8"
     );
     
@@ -278,7 +278,7 @@ curl -X POST "https://yourdomain.com/api.php?action=upload-document" \
     // Prepare multipart request for file upload
     httpService = new http(
         method = "POST",
-        url = "https://autoslmdealfilemanager.co.za/api.php?action=upload-document",
+        url = "https://dealfilemanager.co.za/api.php?action=upload-document",
         charset = "UTF-8"
     );
     
@@ -344,7 +344,7 @@ Handle API errors gracefully:
 ### Test OTP Submission
 
 ```bash
-curl -X POST "https://autoslmdealfilemanager.co.za/api.php?action=receive-otp" \
+curl -X POST "https://dealfilemanager.co.za/api.php?action=receive-otp" \
   -H "Authorization: Bearer YOUR_API_KEY" \
   -H "Content-Type: application/json" \
   -d '{
@@ -399,7 +399,7 @@ curl -X POST "https://autoslmdealfilemanager.co.za/api.php?action=receive-otp" \
 
 ### 500 Internal Server Error
 
-- Check server logs: `/var/www/deal-file-manager/logs/api.log`
+- Check server logs: `/var/www/dealfilemanager/logs/api.log`
 - Verify database connection
 - Check file upload directory permissions
 

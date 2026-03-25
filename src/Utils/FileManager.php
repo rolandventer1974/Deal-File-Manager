@@ -4,7 +4,7 @@ namespace DealFileManager\Utils;
 
 class FileManager
 {
-    private const UPLOAD_DIR = '/var/www/deal-file-manager/public/uploads';
+    private const UPLOAD_DIR = '/var/www/dealfilemanager/public/uploads';
     private const ALLOWED_EXTENSIONS = ['pdf', 'doc', 'docx', 'jpg', 'jpeg', 'png', 'xls', 'xlsx'];
     private const MAX_FILE_SIZE = 52428800; // 50MB
 

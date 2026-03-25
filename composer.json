@@ -1,5 +1,5 @@
 {
-    "name": "deal-file-manager/app",
+    "name": "dealfilemanager/app",
     "description": "Deal File Manager - Document Management System for Auto Sales",
     "type": "project",
     "require": {
